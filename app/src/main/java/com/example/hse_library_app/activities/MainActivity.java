@@ -7,7 +7,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.hse_library_app.R;
+import com.example.hse_library_app.model.ItemList;
 import com.example.hse_library_app.server.ServerMobileAppApi;
+import com.example.hse_library_app.server.ServerUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,6 +50,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showListOfBooks(View view) {
-        startActivity(new Intent(this, BooksListActivity.class));
+        ServerMobileAppApi serverMobileAppApi = ServerUtils.getRetrofit().create(ServerMobileAppApi.class);
+        Call<List<ItemList>> booksList = serverMobileAppApi.getBooksList();
+        final Intent intent = new Intent(this, BooksListActivity.class);
+        booksList.enqueue(new Callback<List<ItemList>>() {
+            @Override
+            public void onResponse(Call<List<ItemList>> call, Response<List<ItemList>> response) {
+                //надо по нормальному передавать список
+                List<ItemList> arrayList = response.body();
+                String str = "itemList";
+                int index = 0;
+                for (ItemList itemList : arrayList) {
+                    intent.putExtra(str + index, itemList);
+                    index += 1;
+                }
+                intent.putExtra("size", index);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(Call<List<ItemList>> call, Throwable t) {
+                //нужно что-то с этим сделать, например показать тоаст
+            }
+        });
     }
 }

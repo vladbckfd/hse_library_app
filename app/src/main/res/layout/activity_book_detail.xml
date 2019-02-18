@@ -6,4 +6,79 @@
     android:layout_height="match_parent"
     tools:context=".activities.BookDetailActivity">
 
+    <TextView
+        android:id="@+id/activityBookDetailAuthorValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintStart_toEndOf="@+id/activityBookDetailAuthorLabel"
+        app:layout_constraintTop_toBottomOf="@+id/activityBookDetailNameValue" />
+
+    <TextView
+        android:id="@+id/activityBookDetailVolumeValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintStart_toEndOf="@+id/activityBookDetailVolumeLabel"
+        app:layout_constraintTop_toBottomOf="@+id/activityBookDetailAuthorValue" />
+
+    <TextView
+        android:id="@+id/activityBookDetailInStockValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintStart_toEndOf="@+id/activityBookDetailInStockLabel"
+        app:layout_constraintTop_toBottomOf="@+id/activityBookDetailVolumeValue" />
+
+    <TextView
+        android:id="@+id/activityBookDetailNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Название"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/activityBookDetailAuthorLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Автор"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityBookDetailNameLabel" />
+
+    <TextView
+        android:id="@+id/activityBookDetailVolumeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Объём в страницах"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityBookDetailAuthorLabel" />
+
+    <TextView
+        android:id="@+id/activityBookDetailInStockLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Есть в наличии"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/activityBookDetailVolumeLabel" />
+
+    <TextView
+        android:id="@+id/activityBookDetailNameValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintStart_toEndOf="@+id/activityBookDetailNameLabel"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>
