@@ -9,12 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.hse_library_app.R;
-import com.example.hse_library_app.model.Book;
 import com.example.hse_library_app.model.ItemList;
 import com.example.hse_library_app.server.ServerMobileAppApi;
 import com.example.hse_library_app.server.ServerUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -23,41 +21,46 @@ import retrofit2.Response;
 
 public class BooksListActivity extends AppCompatActivity {
 
-    List<ItemList> booksNameList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_books_list);
-        booksNameList = new ArrayList<>();
-        String str = "itemList";
-        int size = getIntent().getIntExtra("size", 0);
-        for (int i = 0; i < size; i++) {
-            booksNameList.add(((ItemList) getIntent().getSerializableExtra(str + i)));
-        }
-//                (ArrayList<ItemList>) getIntent().getSerializableExtra("booksList");
-        ArrayAdapter<ItemList> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, booksNameList);
+        findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
+        findViewById(R.id.booksListActivityListView).setVisibility(View.INVISIBLE);
+        loadBookList();
+    }
+
+    private void loadBookList() {
+        ServerMobileAppApi serverMobileAppApi = ServerUtils.getRetrofit().create(ServerMobileAppApi.class);
+        Call<List<ItemList>> booksList = serverMobileAppApi.getBooksList();
+        final Intent intent = new Intent(this, BooksListActivity.class);
+        booksList.enqueue(new Callback<List<ItemList>>() {
+            @Override
+            public void onResponse(Call<List<ItemList>> call, Response<List<ItemList>> response) {
+                showBookList(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<ItemList>> call, Throwable t) {
+                //нужно что-то с этим сделать, например показать тоаст
+            }
+        });
+    }
+
+    private void showBookList(final List<ItemList> arrayList) {
+        ArrayAdapter<ItemList> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrayList);
         ListView listView = findViewById(R.id.booksListActivityListView);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final Intent intent = new Intent(view.getContext(), BookDetailActivity.class);
-                Call<Book> bookCall = ServerUtils.getRetrofit().create(ServerMobileAppApi.class)
-                        .getBookDetail(booksNameList.get(position).getIndex());
-                bookCall.enqueue(new Callback<Book>() {
-                    @Override
-                    public void onResponse(Call<Book> call, Response<Book> response) {
-                        intent.putExtra("book", response.body());
-                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void onFailure(Call<Book> call, Throwable t) {
-
-                    }
-                });
+                Intent intent = new Intent(view.getContext(), BookDetailActivity.class);
+                intent.putExtra("index", arrayList.get(position).getIndex());
+                startActivity(intent);
             }
         });
+        findViewById(R.id.progressBar).setVisibility(View.INVISIBLE);
+        listView.setVisibility(View.VISIBLE);
     }
 }
