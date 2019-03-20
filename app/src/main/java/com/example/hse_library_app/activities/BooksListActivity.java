@@ -22,7 +22,6 @@ import retrofit2.Response;
 
 public class BooksListActivity extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +34,6 @@ public class BooksListActivity extends AppCompatActivity {
     private void loadBookList() {
         ServerMobileAppApi serverMobileAppApi = ServerUtils.getRetrofit().create(ServerMobileAppApi.class);
         Call<List<ItemList>> booksList = serverMobileAppApi.getBooksList();
-        final Intent intent = new Intent(this, BooksListActivity.class);
         booksList.enqueue(new Callback<List<ItemList>>() {
             @Override
             public void onResponse(Call<List<ItemList>> call, Response<List<ItemList>> response) {
