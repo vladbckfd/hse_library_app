@@ -18,8 +18,4 @@ public class MainActivity extends AppCompatActivity {
     public void showListOfBooks(View view) {
         startActivity(new Intent(this, BooksListActivity.class));
     }
-
-    public void experimentalButtonClick(View view) {
-        startActivity(new Intent(this, GridViewActivity.class));
-    }
 }
