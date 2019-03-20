@@ -42,7 +42,7 @@ public class BooksListRecyclerViewAdapter extends RecyclerView.Adapter<BooksList
                                              int viewType) {
         // create a new view
         TextView v = (TextView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.my_text_view, parent, false);
+                .inflate(R.layout.books_list_item_view, parent, false);
 
         BookViewHolder vh = new BookViewHolder(v);
         return vh;
