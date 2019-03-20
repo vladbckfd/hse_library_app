@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.hse_library_app.R;
+import com.example.hse_library_app.model.ItemList;
 import com.example.hse_library_app.utils.BooksListRecyclerViewAdapter;
 
 import java.util.ArrayList;
@@ -28,6 +29,10 @@ public class GridViewActivity extends AppCompatActivity {
             myDataset.add("TestString_" + i);
         }
 
+//        RecyclerView recyclerView;
+//        RecyclerView.Adapter mAdapter;
+//        RecyclerView.LayoutManager layoutManager;
+
         recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
         // use this setting to improve performance if you know that changes
@@ -39,7 +44,7 @@ public class GridViewActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new BooksListRecyclerViewAdapter(myDataset.toArray(new String[1]));
+        mAdapter = new BooksListRecyclerViewAdapter(new ArrayList<ItemList>() /*myDataset.toArray(new String[1])*/);
         ((BooksListRecyclerViewAdapter) mAdapter).setOnItemClickListener(new BooksListRecyclerViewAdapter.RecyclerViewOnItemClickListener() {
             @Override
             public void onItemClick(int position, View v) {

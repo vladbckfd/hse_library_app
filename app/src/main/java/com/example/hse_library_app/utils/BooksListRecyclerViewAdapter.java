@@ -7,9 +7,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.hse_library_app.R;
+import com.example.hse_library_app.model.ItemList;
+
+import java.util.List;
 
 public class BooksListRecyclerViewAdapter extends RecyclerView.Adapter<BooksListRecyclerViewAdapter.BookViewHolder> {
-    private String[] mDataset;
+    private List<ItemList> mDataset;
     private static RecyclerViewOnItemClickListener clickListener;
 
     // Provide a reference to the views for each data item
@@ -32,7 +35,7 @@ public class BooksListRecyclerViewAdapter extends RecyclerView.Adapter<BooksList
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public BooksListRecyclerViewAdapter(String[] myDataset) {
+    public BooksListRecyclerViewAdapter(List<ItemList> myDataset) {
         mDataset = myDataset;
     }
 
@@ -53,14 +56,14 @@ public class BooksListRecyclerViewAdapter extends RecyclerView.Adapter<BooksList
     public void onBindViewHolder(BookViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.textView.setText(mDataset[position]);
+        holder.textView.setText(mDataset.get(position).getName());
 
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return mDataset.size();
     }
 
     public void setOnItemClickListener(RecyclerViewOnItemClickListener clickListener) {

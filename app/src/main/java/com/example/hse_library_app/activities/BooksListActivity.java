@@ -3,16 +3,16 @@ package com.example.hse_library_app.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.hse_library_app.R;
 import com.example.hse_library_app.model.ItemList;
 import com.example.hse_library_app.server.ServerMobileAppApi;
 import com.example.hse_library_app.server.ServerUtils;
+import com.example.hse_library_app.utils.BooksListRecyclerViewAdapter;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class BooksListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_books_list);
         findViewById(R.id.progressBar).setVisibility(View.VISIBLE);
-        findViewById(R.id.booksListActivityListView).setVisibility(View.INVISIBLE);
+        findViewById(R.id.books_list_activity_recycler_view).setVisibility(View.INVISIBLE);
         loadBookList();
     }
 
@@ -50,18 +50,20 @@ public class BooksListActivity extends AppCompatActivity {
     }
 
     private void showBookList(final List<ItemList> arrayList) {
-        ArrayAdapter<ItemList> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, arrayList);
-        ListView listView = findViewById(R.id.booksListActivityListView);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        RecyclerView recyclerView = findViewById(R.id.books_list_activity_recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        BooksListRecyclerViewAdapter viewAdapter = new BooksListRecyclerViewAdapter(arrayList);
+        viewAdapter.setOnItemClickListener(new BooksListRecyclerViewAdapter.RecyclerViewOnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(view.getContext(), BookDetailActivity.class);
+            public void onItemClick(int position, View v) {
+                Intent intent = new Intent(v.getContext(), BookDetailActivity.class);
                 intent.putExtra("index", arrayList.get(position).getIndex());
                 startActivity(intent);
             }
         });
+        recyclerView.setAdapter(viewAdapter);
         findViewById(R.id.progressBar).setVisibility(View.INVISIBLE);
-        listView.setVisibility(View.VISIBLE);
+        recyclerView.setVisibility(View.VISIBLE);
     }
 }

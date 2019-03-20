@@ -14,11 +14,6 @@ public class ItemList implements Serializable {
     @Expose
     private String name;
 
-    @Override
-    public String toString() {
-        return name;
-    }
-
     public Integer getIndex() {
         return index;
     }
