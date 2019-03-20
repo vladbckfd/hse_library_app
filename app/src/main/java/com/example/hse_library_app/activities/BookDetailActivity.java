@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hse_library_app.R;
 import com.example.hse_library_app.model.Book;
@@ -36,7 +37,7 @@ public class BookDetailActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Book> call, Throwable t) {
-
+                Toast.makeText(getApplicationContext(), "Call to the server is failed", Toast.LENGTH_LONG).show();
             }
         });
 

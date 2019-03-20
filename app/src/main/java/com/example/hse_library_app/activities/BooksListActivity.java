@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.hse_library_app.R;
 import com.example.hse_library_app.model.ItemList;
@@ -43,7 +44,7 @@ public class BooksListActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<ItemList>> call, Throwable t) {
-                //нужно что-то с этим сделать, например показать тоаст
+                Toast.makeText(getApplicationContext(), "Call to the server is failed", Toast.LENGTH_LONG).show();
             }
         });
     }
