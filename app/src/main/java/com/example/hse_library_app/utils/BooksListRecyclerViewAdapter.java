@@ -57,6 +57,7 @@ public class BooksListRecyclerViewAdapter extends RecyclerView.Adapter<BooksList
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.textView.setText(mDataset.get(position).getName());
+        holder.textView.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.book_icon_black_good_galleries__24, 0, 0);
 
     }
 

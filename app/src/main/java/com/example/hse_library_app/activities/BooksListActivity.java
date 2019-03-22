@@ -3,6 +3,7 @@ package com.example.hse_library_app.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -50,7 +51,7 @@ public class BooksListActivity extends AppCompatActivity {
     private void showBookList(final List<ItemList> arrayList) {
         RecyclerView recyclerView = findViewById(R.id.books_list_activity_recycler_view);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         BooksListRecyclerViewAdapter viewAdapter = new BooksListRecyclerViewAdapter(arrayList);
         viewAdapter.setOnItemClickListener(new BooksListRecyclerViewAdapter.RecyclerViewOnItemClickListener() {
             @Override
